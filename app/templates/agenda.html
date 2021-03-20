@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>agendas</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light">
+        <form action="back_agenda" method="POST">
+            <button type="submit">back</button>
+        </form>
+        <div class="container">
+            <h3>{{project_name}}</h3>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 g-4 m-3  justify-content-sm-center">
+            {% for agenda in all_agenda%}
+            <div class="col-3">
+                {% if agenda.done%}
+                <div class="card bg-warning mb-3" style="max-width: 18rem">
+                {% else %}
+                <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{agenda.agenda}}</h5>
+                        <form action="/update_agenda" id="update" method="POST">
+                            <input type="text" name="update_agenda" placeholder="agenda name">
+                        </form>
+                        <form action="/open_agenda" method="POST">
+                            <button type="submit" name="open" value={{agenda.id}} class="btn btn-primary">open</button>
+                        </form>
+                        <button type="submit" name="update" value={{agenda.id}} class="btn btn-primary" form="update">update</button>
+                        <form action="/delete_agenda" method="POST">
+                            <button type="submit" name="delete" value={{agenda.id}} class="btn btn-primary">delete</button>
+                        </form>
+                        <form action="/done_agenda" method="POST">
+                            <button type="submit" name="done" value={{agenda.id}} class="btn btn-primary">done</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor%}
+            <div class="col-3">
+                <form action="/add_agenda" method="POST">
+                    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">add agenda</h5>
+                            <input type="text" name="agenda" placeholder="agenda name">
+                            <button type="submit" name="add_agenda" class="btn btn-primary">add agenda</button>
+                        </div>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
+</html>

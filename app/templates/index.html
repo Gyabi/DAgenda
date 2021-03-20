@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{name}}</title>
+</head>
+<body>
+
+    <a href="/logout">ログアウトする</a>
+
+    {% if name == "a" %}
+    <h1>特級フンコロガシ</h1>
+    {% elif name %}
+    <h1>{{name}}フンコロガシ</h1>
+    {% else %}
+    <h1>通常フンコロガシ</h1>
+    {% endif %}
+
+    <!-- 画像の表示 -->
+    <img src="/static/images/hunnkorogasi.jpg" alt="フンコロガシ">
+
+    <!-- 追加 -->
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="body" placeholder="body">
+        <input type="submit" value="Add">
+    </form>
+
+    <!-- 編集 -->
+    <form action="/update" method="POST" id="update">
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="body" placeholder="body">
+        <input type="submit" value="Update">
+    </form>
+    <form action="/delete" method="POST" id="delete">
+        <input type="submit" value="Delete Selected All Agenda">
+    </form>
+        
+        {% for agenda in all_agenda%}
+        <div>
+            <input type="radio" name="update" form="update" value={{agenda.id}}>
+            <input type="checkbox" name="delete" form="delete" value={{agenda.id}}>
+            {{agenda.title}} : {{agenda.body}} ({{agenda.date}})
+        </div>
+        {% endfor%}
+
+</body>
+</html>
